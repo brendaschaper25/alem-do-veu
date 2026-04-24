@@ -1,18 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
 
-const CEP_ORIGEM = '39800000' // Teófilo Otoni - MG
+const CEP_ORIGEM = '39800000'
+
+const FreteInputSchema = z.object({
+  cepDestino: z.string().regex(/^\d{8}$/, 'CEP deve ter exatamente 8 dígitos'),
+  peso: z.number().min(1).max(30000),
+})
 
 export async function POST(req: NextRequest) {
   try {
-    const { cepDestino, peso } = await req.json()
+    const body = await req.json()
+    const parsed = FreteInputSchema.safeParse(body)
 
-    if (!cepDestino || cepDestino.length !== 8) {
-      return NextResponse.json({ erro: 'CEP inválido' }, { status: 400 })
+    if (!parsed.success) {
+      return NextResponse.json({ erro: 'CEP inválido.' }, { status: 400 })
     }
 
+    const { cepDestino, peso } = parsed.data
     const token = process.env.MELHOR_ENVIO_TOKEN
 
-    // Se não há token configurado, retorna fretes simulados para preview
     if (!token) {
       return NextResponse.json({
         fretes: [
@@ -37,7 +44,7 @@ export async function POST(req: NextRequest) {
           height: 15, width: 15, length: 15,
           weight: Math.max(0.1, peso / 1000),
         },
-        services: '1,2', // PAC e SEDEX
+        services: '1,2',
       }),
     })
 
@@ -53,7 +60,10 @@ export async function POST(req: NextRequest) {
       }))
 
     if (fretes.length === 0) {
-      return NextResponse.json({ erro: 'Nenhuma opção de frete disponível para este CEP.' }, { status: 422 })
+      return NextResponse.json(
+        { erro: 'Nenhuma opção de frete disponível para este CEP.' },
+        { status: 422 }
+      )
     }
 
     return NextResponse.json({ fretes })

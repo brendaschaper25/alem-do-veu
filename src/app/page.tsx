@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import ProductCard from '@/components/ProductCard'
-import { produtos } from '@/lib/produtos'
+import { getProdutos } from '@/lib/produtos'
 
-export default function Home() {
-  const destaques = produtos.slice(0, 4)
+export default async function Home() {
+  const todos = await getProdutos()
+  const destaques = todos.filter(p => p.destaque).slice(0, 4)
+  const exibidos = destaques.length >= 2 ? destaques : todos.slice(0, 4)
 
   return (
     <>
@@ -49,7 +51,7 @@ export default function Home() {
           <h2 style={{ fontFamily: 'Cinzel, serif', fontSize: 'clamp(1.5rem, 3vw, 2rem)', color: '#F0EAFF', fontWeight: 600 }}>Produtos em Destaque</h2>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '1.5rem' }}>
-          {destaques.map(p => <ProductCard key={p.id} produto={p} />)}
+          {exibidos.map(p => <ProductCard key={p.id} produto={p} />)}
         </div>
         <div style={{ textAlign: 'center', marginTop: '3rem' }}>
           <Link href="/produtos"><button className="btn-outline">Ver Todos os Produtos</button></Link>

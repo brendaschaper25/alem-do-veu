@@ -1,13 +1,15 @@
 import { notFound } from 'next/navigation'
-import { getProduto, produtos } from '@/lib/produtos'
+import { getProduto, getSlugs } from '@/lib/produtos'
 import AddToCartBtn from './AddToCartBtn'
 
 export async function generateStaticParams() {
-  return produtos.map(p => ({ slug: p.slug }))
+  const slugs = await getSlugs()
+  return slugs.map(slug => ({ slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const produto = getProduto(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const produto = await getProduto(slug)
   if (!produto) return {}
   return {
     title: `${produto.nome} | Além do Véu`,
@@ -15,8 +17,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default function ProdutoPage({ params }: { params: { slug: string } }) {
-  const produto = getProduto(params.slug)
+export default async function ProdutoPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const produto = await getProduto(slug)
   if (!produto) notFound()
 
   return (
@@ -69,7 +72,7 @@ export default function ProdutoPage({ params }: { params: { slug: string } }) {
             <div style={{ background: 'rgba(61,36,100,0.3)', border: '1px solid rgba(196,181,217,0.1)', padding: '1rem', marginBottom: '2rem' }}>
               {[
                 ['Peso', `${produto.peso}g`],
-                ['Dimensões', `${produto.dimensoes.altura} × ${produto.dimensoes.largura} × ${produto.dimensoes.comprimento} cm`],
+                ['Dimensões', produto.dimensoes],
                 ['Estoque', produto.estoque > 0 ? `${produto.estoque} disponíveis` : 'Esgotado'],
               ].map(([label, valor]) => (
                 <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.4rem 0', borderBottom: '1px solid rgba(196,181,217,0.06)', fontSize: '0.78rem' }}>

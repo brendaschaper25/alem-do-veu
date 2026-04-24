@@ -1,20 +1,20 @@
 import ProductCard from '@/components/ProductCard'
-import { produtos, categorias } from '@/lib/produtos'
+import { getProdutos, categorias } from '@/lib/produtos'
 
 export const metadata = {
   title: 'Produtos | Além do Véu',
   description: 'Velas, incensos e cristais com curadoria e propósito espiritual.',
 }
 
-export default function ProdutosPage({ searchParams }: { searchParams: { categoria?: string } }) {
-  const cat = searchParams.categoria
-  const lista = cat ? produtos.filter(p => p.categoria === cat) : produtos
+export default async function ProdutosPage({ searchParams }: { searchParams: Promise<{ categoria?: string }> }) {
+  const { categoria: cat } = await searchParams
+  const todos = await getProdutos()
+  const lista = cat ? todos.filter(p => p.categoria === cat) : todos
 
   return (
     <div style={{ paddingTop: '6rem', paddingBottom: '4rem', minHeight: '100vh' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
 
-        {/* Título */}
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <p style={{ fontFamily: 'Cinzel, serif', fontSize: '0.6rem', letterSpacing: '0.35em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Curadoria Completa</p>
           <h1 style={{ fontFamily: 'Cinzel, serif', fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#F0EAFF', fontWeight: 600, letterSpacing: '0.08em', marginBottom: '1rem' }}>
@@ -25,7 +25,6 @@ export default function ProdutosPage({ searchParams }: { searchParams: { categor
           </p>
         </div>
 
-        {/* Filtros */}
         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '3rem' }}>
           <a href="/produtos" style={{ textDecoration: 'none' }}>
             <button className={!cat ? 'btn-primary' : 'btn-outline'} style={{ padding: '0.5rem 1.25rem', fontSize: '0.6rem' }}>
@@ -41,7 +40,6 @@ export default function ProdutosPage({ searchParams }: { searchParams: { categor
           ))}
         </div>
 
-        {/* Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '1.5rem' }}>
           {lista.map(p => <ProductCard key={p.id} produto={p} />)}
         </div>

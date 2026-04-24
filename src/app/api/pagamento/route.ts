@@ -1,37 +1,91 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
 import MercadoPagoConfig, { Payment } from 'mercadopago'
+import { produtos } from '@/lib/produtos'
 
-interface ItemPedido { nome: string; preco: number; quantidade: number }
-interface Frete { nome: string; preco: number; servico: string; prazo: string }
-interface Comprador {
-  nome: string; email: string; telefone: string
-  cep: string; rua: string; numero: string; bairro: string; cidade: string; estado: string
-}
+// Validação Zod — só aceita o que esperamos, sem preço vindo do cliente
+const ItemSchema = z.object({
+  produtoId: z.string().min(1).max(50),
+  quantidade: z.number().int().min(1).max(99),
+})
+
+const FreteSchema = z.object({
+  servico: z.string().min(1).max(30),
+  nome: z.string().min(1).max(100),
+  prazo: z.string().min(1).max(50),
+  preco: z.number().min(0).max(500),
+})
+
+const CompradorSchema = z.object({
+  nome: z.string().min(2).max(120),
+  email: z.string().email(),
+  telefone: z.string().min(8).max(20),
+  cep: z.string().regex(/^\d{8}$/),
+  rua: z.string().min(2).max(200),
+  numero: z.string().min(1).max(20),
+  bairro: z.string().min(2).max(100),
+  cidade: z.string().min(2).max(100),
+  estado: z.string().min(2).max(2),
+})
+
+const PedidoSchema = z.object({
+  itens: z.array(ItemSchema).min(1).max(20),
+  frete: FreteSchema,
+  comprador: CompradorSchema,
+})
 
 export async function POST(req: NextRequest) {
   try {
-    const { itens, frete, comprador }: { itens: ItemPedido[]; frete: Frete; comprador: Comprador } = await req.json()
+    const body = await req.json()
 
-    if (!itens?.length || !frete || !comprador?.email) {
-      return NextResponse.json({ erro: 'Dados do pedido incompletos.' }, { status: 400 })
+    // Valida estrutura do body
+    const parsed = PedidoSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json(
+        { erro: 'Dados do pedido inválidos.' },
+        { status: 400 }
+      )
     }
+
+    const { itens, frete, comprador } = parsed.data
+
+    // Busca preços no servidor — nunca usa preço enviado pelo cliente
+    const itensComPreco = itens.map(item => {
+      const produto = produtos.find(p => p.id === item.produtoId)
+      if (!produto) return null
+      if (produto.estoque < item.quantidade) return null
+      return {
+        id: produto.id,
+        nome: produto.nome,
+        preco: produto.preco, // ← fonte confiável: servidor
+        quantidade: item.quantidade,
+        subtotal: produto.preco * item.quantidade,
+      }
+    })
+
+    if (itensComPreco.some(i => i === null)) {
+      return NextResponse.json(
+        { erro: 'Um ou mais produtos não estão disponíveis.' },
+        { status: 422 }
+      )
+    }
+
+    const itensValidos = itensComPreco as NonNullable<typeof itensComPreco[0]>[]
+    const totalItens = itensValidos.reduce((s, i) => s + i.subtotal, 0)
+    const totalFinal = +(totalItens + frete.preco).toFixed(2)
 
     const token = process.env.MERCADO_PAGO_TOKEN
 
-    // Modo preview: sem token, retorna PIX simulado
+    // Modo preview sem token
     if (!token) {
-      const totalSimulado = itens.reduce((s, i) => s + i.preco * i.quantidade, 0) + frete.preco
       return NextResponse.json({
-        pixCopiaECola: `00020126580014BR.GOV.BCB.PIX0136simulado-pix-alemdoveu-${Date.now()}5204000053039865406${totalSimulado.toFixed(2).replace('.', '')}5802BR5913Além do Véu6009SAO PAULO62070503***6304ABCD`,
-        total: totalSimulado,
+        pixCopiaECola: `00020126580014BR.GOV.BCB.PIX0136simulado-pix-alemdoveu-${Date.now()}5204000053039865406${String(totalFinal.toFixed(2)).replace('.', '')}5802BR5913Além do Véu6009TEOFILO62070503***6304ABCD`,
+        total: totalFinal,
       })
     }
 
     const mp = new MercadoPagoConfig({ accessToken: token })
     const payment = new Payment(mp)
-
-    const totalItens = itens.reduce((s, i) => s + i.preco * i.quantidade, 0)
-    const totalFinal = +(totalItens + frete.preco).toFixed(2)
 
     const expiration = new Date()
     expiration.setHours(expiration.getHours() + 24)
@@ -48,7 +102,7 @@ export async function POST(req: NextRequest) {
           first_name: firstName,
           last_name: rest.join(' ') || firstName,
           address: {
-            zip_code: comprador.cep.replace(/\D/g, ''),
+            zip_code: comprador.cep,
             street_name: comprador.rua,
             street_number: comprador.numero,
             neighborhood: comprador.bairro,
@@ -57,22 +111,22 @@ export async function POST(req: NextRequest) {
           },
         },
         additional_info: {
-          items: itens.map(i => ({
-            id: i.nome.toLowerCase().replace(/\s+/g, '-'),
+          items: itensValidos.map(i => ({
+            id: i.id,
             title: i.nome,
             quantity: i.quantidade,
             unit_price: i.preco,
           })),
           shipments: {
             receiver_address: {
-              zip_code: comprador.cep.replace(/\D/g, ''),
+              zip_code: comprador.cep,
               street_name: comprador.rua,
               street_number: comprador.numero,
               apartment: '',
             },
           },
         },
-        description: `Pedido Além do Véu — ${itens.map(i => i.nome).join(', ')}`,
+        description: `Pedido Além do Véu — ${itensValidos.map(i => i.nome).join(', ')}`,
         notification_url: process.env.NEXT_PUBLIC_URL
           ? `${process.env.NEXT_PUBLIC_URL}/api/webhook`
           : undefined,
@@ -82,12 +136,14 @@ export async function POST(req: NextRequest) {
     const pixCode = result.point_of_interaction?.transaction_data?.qr_code
 
     if (!pixCode) {
-      return NextResponse.json({ erro: 'Não foi possível gerar o PIX. Tente novamente.' }, { status: 502 })
+      return NextResponse.json(
+        { erro: 'Não foi possível gerar o PIX. Tente novamente.' },
+        { status: 502 }
+      )
     }
 
     return NextResponse.json({ pixCopiaECola: pixCode, total: totalFinal, paymentId: result.id })
-  } catch (err) {
-    console.error('[pagamento]', err)
+  } catch {
     return NextResponse.json({ erro: 'Erro ao processar pagamento.' }, { status: 500 })
   }
 }

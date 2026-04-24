@@ -51,7 +51,8 @@ export default function CheckoutPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          itens: itens.map(i => ({ nome: i.produto.nome, preco: i.produto.preco, quantidade: i.quantidade })),
+          // Envia só ID e quantidade — preço é calculado no servidor
+          itens: itens.map(i => ({ produtoId: i.produto.id, quantidade: i.quantidade })),
           frete: freteSelecionado,
           comprador: form,
         }),
