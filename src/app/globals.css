@@ -1,31 +1,40 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Lato:ital,wght@0,300;0,400;1,300&display=swap');
+
+/* Fontes carregadas via next/font — variáveis CSS definidas em layout.tsx */
 
 @theme {
-  --color-creme:      #F8F5F0;
-  --color-areia:      #EFE9DF;
-  --color-borda:      rgba(180,160,140,0.25);
-  --color-texto:      #1E1510;
-  --color-texto-2:    #7A6355;
-  --color-texto-3:    #A89487;
-  --color-violeta:    #6B4E8E;
-  --color-violeta-2:  #543D72;
-  --color-ouro:       #C9A84C;
-  --color-ouro-dim:   #A88830;
-  --font-bodoni:      'Bodoni Moda', Georgia, serif;
-  --font-cormorant:   'Cormorant Garamond', Georgia, serif;
-  --font-lato:        'Lato', system-ui, sans-serif;
-  --font-script:      'Great Vibes', cursive;
+  --color-creme:     #F8F5F0;
+  --color-areia:     #EFE9DF;
+  --color-branco:    #FFFFFF;
+  --color-borda:     rgba(180,160,140,0.22);
+  --color-texto:     #1E1510;
+  --color-texto-2:   #7A6355;
+  --color-texto-3:   #A89487;
+  --color-violeta:   #6B4E8E;
+  --color-violeta-2: #543D72;
+  --color-ouro:      #C9A84C;
+  --color-ouro-dim:  #A88830;
+
+  /* Aliases convenientes para inline styles */
+  --f-bodoni:    var(--font-bodoni), Georgia, serif;
+  --f-cormorant: var(--font-cormorant), Georgia, serif;
+  --f-lato:      var(--font-lato), system-ui, sans-serif;
+  --f-script:    var(--font-script), cursive;
+
+  /* Alturas fixas — evita magic numbers por todo o projeto */
+  --bar-h:  36px;
+  --nav-h:  72px;
+  --top-h:  108px;   /* bar + nav */
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 
 body {
   background-color: #F8F5F0;
   color: #1E1510;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
   font-weight: 300;
   font-size: 1.05rem;
   line-height: 1.75;
@@ -38,16 +47,20 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: #C9A84C; }
 ::selection { background: rgba(107,78,142,0.12); color: #1E1510; }
 
-.font-bodoni    { font-family: 'Bodoni Moda', Georgia, serif; }
-.font-cormorant { font-family: 'Cormorant Garamond', Georgia, serif; }
-.font-script    { font-family: 'Great Vibes', cursive; }
+/* ── Utilitários de fonte ─────────────────────────── */
+.font-bodoni    { font-family: var(--font-bodoni), Georgia, serif; }
+.font-cormorant { font-family: var(--font-cormorant), Georgia, serif; }
+.font-lato      { font-family: var(--font-lato), system-ui, sans-serif; }
+.font-script    { font-family: var(--font-script), cursive; }
 
+/* ── Ornamento ─────────────────────────────────────── */
 .linha-ouro {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.45), transparent);
 }
 
+/* ── Botões ────────────────────────────────────────── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -56,16 +69,17 @@ body {
   padding: 0.75rem 2rem;
   background: #6B4E8E;
   color: #F8F5F0;
-  font-family: 'Lato', sans-serif;
+  font-family: var(--font-lato), system-ui, sans-serif;
   font-size: 0.65rem;
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   border: none;
   cursor: pointer;
-  transition: background 0.25s, transform 0.2s;
+  transition: background 0.22s, transform 0.18s;
 }
-.btn-primary:hover { background: #543D72; transform: translateY(-1px); }
+.btn-primary:hover  { background: #543D72; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
 
 .btn-outline {
   display: inline-flex;
@@ -74,53 +88,54 @@ body {
   padding: 0.75rem 2rem;
   background: transparent;
   color: #6B4E8E;
-  font-family: 'Lato', sans-serif;
+  font-family: var(--font-lato), system-ui, sans-serif;
   font-size: 0.65rem;
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   border: 1px solid rgba(107,78,142,0.3);
   cursor: pointer;
-  transition: all 0.25s;
+  transition: all 0.22s;
 }
 .btn-outline:hover { border-color: #6B4E8E; background: rgba(107,78,142,0.05); }
 
-.product-card {
-  position: relative;
-  background: #FFFFFF;
-  border: 1px solid rgba(180,160,140,0.2);
-  overflow: hidden;
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-}
-.product-card:hover {
-  border-color: rgba(107,78,142,0.2);
-  box-shadow: 0 8px 32px rgba(107,78,142,0.07);
-  transform: translateY(-3px);
-}
-
+/* ── Inputs ────────────────────────────────────────── */
 .input-marca {
   width: 100%;
   background: #FFFFFF;
   border: 1px solid rgba(180,160,140,0.35);
   color: #1E1510;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
   font-size: 1rem;
   font-weight: 300;
   padding: 0.75rem 1rem;
   outline: none;
-  transition: border-color 0.3s;
+  transition: border-color 0.25s;
 }
 .input-marca::placeholder { color: #A89487; }
-.input-marca:focus { border-color: rgba(107,78,142,0.4); }
+.input-marca:focus         { border-color: rgba(107,78,142,0.4); }
 
-select.input-marca { cursor: pointer; }
+/* ── Cards de produto ──────────────────────────────── */
+.product-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(180,160,140,0.2);
+  overflow: hidden;
+  transition: border-color 0.28s, box-shadow 0.28s, transform 0.28s;
+}
+.product-card:hover {
+  border-color: rgba(107,78,142,0.22);
+  box-shadow: 0 10px 36px rgba(107,78,142,0.07);
+  transform: translateY(-3px);
+}
 
+/* ── Animações ─────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .fade-up { animation: fadeUp 0.6s ease forwards; }
 
-@media (prefers-reduced-motion: reduce) {
-  .fade-up { animation: none; }
-}
+@media (prefers-reduced-motion: reduce) { .fade-up { animation: none; } }
+
+@keyframes spin { to { transform: rotate(360deg); } }

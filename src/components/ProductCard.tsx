@@ -34,19 +34,19 @@ export default function ProductCard({ produto }: { produto: Produto }) {
 
       {/* Info */}
       <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-        <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.3em', color: '#6B4E8E', textTransform: 'uppercase' }}>
+        <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.3em', color: '#6B4E8E', textTransform: 'uppercase' }}>
           {produto.categoria}
         </span>
         <Link href={`/produtos/${produto.slug}`} style={{ textDecoration: 'none' }}>
-          <h3 style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '1.05rem', fontWeight: 700, color: '#1E1510', letterSpacing: '0.02em', margin: 0, lineHeight: 1.3 }}>
+          <h3 style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.05rem', fontWeight: 700, color: '#1E1510', letterSpacing: '0.02em', margin: 0, lineHeight: 1.3 }}>
             {produto.nome}
           </h3>
         </Link>
-        <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '0.95rem', fontWeight: 300, color: '#7A6355', margin: 0, lineHeight: 1.65, flex: 1 }}>
+        <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '0.95rem', fontWeight: 300, color: '#7A6355', margin: 0, lineHeight: 1.65, flex: 1 }}>
           {produto.descricao}
         </p>
         {produto.intencao && (
-          <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: '1rem', color: '#C9A84C', margin: 0 }}>
+          <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: '1rem', color: '#C9A84C', margin: 0 }}>
             {produto.intencao}
           </p>
         )}
@@ -54,7 +54,7 @@ export default function ProductCard({ produto }: { produto: Produto }) {
 
       {/* Rodapé */}
       <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '1.1rem', fontWeight: 700, color: '#1E1510' }}>
+        <span style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.1rem', fontWeight: 700, color: '#1E1510' }}>
           R$ {produto.preco.toFixed(2).replace('.', ',')}
         </span>
         <button

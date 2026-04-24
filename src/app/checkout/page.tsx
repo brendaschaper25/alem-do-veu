@@ -127,7 +127,7 @@ export default function CheckoutPage() {
   if (itens.length === 0) {
     return (
       <div style={{ paddingTop: '8rem', textAlign: 'center', minHeight: '100vh' }}>
-        <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, color: '#A89487', letterSpacing: '0.1em', fontSize: '1rem' }}>
+        <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, color: '#A89487', letterSpacing: '0.1em', fontSize: '1rem' }}>
           Seu carrinho está vazio.
         </p>
         <a href="/produtos" className="btn-outline" style={{ display: 'inline-block', marginTop: '1.5rem', textDecoration: 'none' }}>
@@ -138,7 +138,7 @@ export default function CheckoutPage() {
   }
 
   const labelStyle = {
-    fontFamily: "'Lato', sans-serif" as const,
+    fontFamily: 'var(--font-lato), system-ui, sans-serif' as const,
     fontSize: '0.52rem',
     fontWeight: 300 as const,
     letterSpacing: '0.25em',
@@ -150,9 +150,9 @@ export default function CheckoutPage() {
   const totalFinal = total + (freteSelecionado?.preco ?? 0)
 
   return (
-    <div style={{ paddingTop: '6rem', paddingBottom: '5rem', minHeight: '100vh' }}>
+    <div style={{ paddingTop: '108px', paddingBottom: '5rem', minHeight: '100vh' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 2rem' }}>
-        <h1 style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '1.7rem', fontWeight: 700, color: '#1E1510', letterSpacing: '0.06em', marginBottom: '2.5rem', textAlign: 'center' }}>
+        <h1 style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.7rem', fontWeight: 700, color: '#1E1510', letterSpacing: '0.06em', marginBottom: '2.5rem', textAlign: 'center' }}>
           Finalizar Pedido
         </h1>
 
@@ -163,7 +163,7 @@ export default function CheckoutPage() {
 
             {/* Dados pessoais */}
             <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem' }}>
-              <h2 style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
                 Dados Pessoais
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
@@ -183,7 +183,7 @@ export default function CheckoutPage() {
 
             {/* Endereço */}
             <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem' }}>
-              <h2 style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
                 Endereço de Entrega
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
             {/* Frete */}
             {fretes.length > 0 && (
               <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem' }}>
-                <h2 style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+                <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
                   Opções de Frete
                 </h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -236,10 +236,10 @@ export default function CheckoutPage() {
                       }}
                     >
                       <input type="radio" name="frete" value={f.servico} onChange={() => setFreteSelecionado(f)} style={{ accentColor: '#6B4E8E' }} />
-                      <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, flex: 1, fontSize: '1rem', color: '#1E1510' }}>
+                      <span style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, flex: 1, fontSize: '1rem', color: '#1E1510' }}>
                         {f.nome} — {f.prazo}
                       </span>
-                      <span style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontWeight: 700, color: '#1E1510', fontSize: '0.95rem' }}>
+                      <span style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontWeight: 700, color: '#1E1510', fontSize: '0.95rem' }}>
                         R$ {f.preco.toFixed(2).replace('.', ',')}
                       </span>
                     </label>
@@ -250,7 +250,7 @@ export default function CheckoutPage() {
 
             {/* Pagamento */}
             <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem' }}>
-              <h2 style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
                 Forma de Pagamento
               </h2>
 
@@ -262,7 +262,7 @@ export default function CheckoutPage() {
                     onClick={() => setAba(id)}
                     style={{
                       flex: 1, padding: '0.75rem',
-                      fontFamily: "'Lato', sans-serif", fontSize: '0.6rem', fontWeight: 300,
+                      fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.6rem', fontWeight: 300,
                       letterSpacing: '0.12em', textTransform: 'uppercase', border: 'none', cursor: 'pointer',
                       background: aba === id ? '#6B4E8E' : 'transparent',
                       color: aba === id ? '#F8F5F0' : '#A89487',
@@ -277,10 +277,10 @@ export default function CheckoutPage() {
               {aba === 'pix' && (
                 <div style={{ textAlign: 'center', padding: '1.5rem 0' }}>
                   <p style={{ fontSize: '2.2rem', marginBottom: '0.75rem' }}>⚡</p>
-                  <p style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontWeight: 700, fontSize: '0.95rem', color: '#1E1510', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
+                  <p style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontWeight: 700, fontSize: '0.95rem', color: '#1E1510', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
                     Pague com PIX
                   </p>
-                  <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '1rem', color: '#7A6355', lineHeight: 1.75 }}>
+                  <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '1rem', color: '#7A6355', lineHeight: 1.75 }}>
                     Após confirmar, você receberá o código PIX para copiar e colar no seu banco.
                     <br /><span style={{ color: '#6B4E8E' }}>Aprovação imediata.</span>
                   </p>
@@ -300,16 +300,16 @@ export default function CheckoutPage() {
 
           {/* Resumo */}
           <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem', position: 'sticky', top: '6rem' }}>
-            <h2 style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+            <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
               Resumo
             </h2>
 
             {itens.map(({ produto, quantidade }) => (
               <div key={produto.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-                <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#7A6355' }}>
+                <span style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.95rem', color: '#7A6355' }}>
                   {produto.nome} ×{quantidade}
                 </span>
-                <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#1E1510' }}>
+                <span style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.95rem', color: '#1E1510' }}>
                   R$ {(produto.preco * quantidade).toFixed(2).replace('.', ',')}
                 </span>
               </div>
@@ -318,27 +318,27 @@ export default function CheckoutPage() {
             <div className="linha-ouro" style={{ margin: '1rem 0' }} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-              <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#A89487' }}>Subtotal</span>
-              <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#1E1510' }}>
+              <span style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.95rem', color: '#A89487' }}>Subtotal</span>
+              <span style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.95rem', color: '#1E1510' }}>
                 R$ {total.toFixed(2).replace('.', ',')}
               </span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-              <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#A89487' }}>Frete</span>
-              <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#1E1510' }}>
+              <span style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.95rem', color: '#A89487' }}>Frete</span>
+              <span style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.95rem', color: '#1E1510' }}>
                 {freteSelecionado ? `R$ ${freteSelecionado.preco.toFixed(2).replace('.', ',')}` : '—'}
               </span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.5rem' }}>
-              <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.2em', color: '#A89487', textTransform: 'uppercase' }}>Total</span>
-              <span style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '1.3rem', fontWeight: 700, color: '#1E1510' }}>
+              <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.2em', color: '#A89487', textTransform: 'uppercase' }}>Total</span>
+              <span style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.3rem', fontWeight: 700, color: '#1E1510' }}>
                 R$ {totalFinal.toFixed(2).replace('.', ',')}
               </span>
             </div>
 
             {erro && (
-              <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.9rem', color: '#c0392b', marginBottom: '1rem', lineHeight: 1.5 }}>
+              <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.9rem', color: '#c0392b', marginBottom: '1rem', lineHeight: 1.5 }}>
                 {erro}
               </p>
             )}
@@ -357,12 +357,12 @@ export default function CheckoutPage() {
             )}
 
             {aba === 'cartao' && (
-              <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.9rem', color: '#A89487', textAlign: 'center', lineHeight: 1.6 }}>
+              <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.9rem', color: '#A89487', textAlign: 'center', lineHeight: 1.6 }}>
                 Preencha os dados do cartão ao lado e clique em "Pagar".
               </p>
             )}
 
-            <p style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.1em', color: '#A89487', textAlign: 'center', marginTop: '0.75rem', lineHeight: 1.6 }}>
+            <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.1em', color: '#A89487', textAlign: 'center', marginTop: '0.75rem', lineHeight: 1.6 }}>
               Pagamento seguro via Mercado Pago
             </p>
           </div>

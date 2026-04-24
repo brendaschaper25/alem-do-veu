@@ -23,11 +23,11 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
   if (!produto) notFound()
 
   return (
-    <div style={{ paddingTop: '6rem', paddingBottom: '5rem', minHeight: '100vh' }}>
+    <div style={{ paddingTop: '108px', paddingBottom: '5rem', minHeight: '100vh' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 2rem' }}>
 
         {/* Breadcrumb */}
-        <nav style={{ marginBottom: '2rem', fontFamily: "'Lato', sans-serif", fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.12em', color: '#A89487' }}>
+        <nav style={{ marginBottom: '2rem', fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.12em', color: '#A89487' }}>
           <a href="/" style={{ color: '#A89487', textDecoration: 'none', transition: 'color 0.2s' }}>Início</a>
           <span style={{ margin: '0 0.5rem', color: '#C9A84C', opacity: 0.5 }}>›</span>
           <a href="/produtos" style={{ color: '#A89487', textDecoration: 'none' }}>Produtos</a>
@@ -53,19 +53,19 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
 
           {/* Info */}
           <div>
-            <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.3em', color: '#6B4E8E', textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
+            <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.3em', color: '#6B4E8E', textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
               {produto.categoria}
             </span>
-            <h1 style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 700, color: '#1E1510', letterSpacing: '0.03em', marginBottom: '0.5rem', lineHeight: 1.2 }}>
+            <h1 style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 700, color: '#1E1510', letterSpacing: '0.03em', marginBottom: '0.5rem', lineHeight: 1.2 }}>
               {produto.nome}
             </h1>
-            <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: '1.2rem', color: '#C9A84C', marginBottom: '1.5rem' }}>
+            <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: '1.2rem', color: '#C9A84C', marginBottom: '1.5rem' }}>
               {produto.intencao}
             </p>
 
             <div className="linha-ouro" style={{ marginBottom: '1.5rem' }} />
 
-            <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.05rem', fontWeight: 300, color: '#7A6355', lineHeight: 1.9, marginBottom: '2rem' }}>
+            <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '1.05rem', fontWeight: 300, color: '#7A6355', lineHeight: 1.9, marginBottom: '2rem' }}>
               {produto.descricaoLonga}
             </p>
 
@@ -76,7 +76,7 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
                 ['Dimensões', produto.dimensoes],
                 ['Estoque', produto.estoque > 0 ? `${produto.estoque} disponíveis` : 'Esgotado'],
               ].map(([label, valor]) => (
-                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0', borderBottom: '1px solid rgba(180,160,140,0.12)', fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
+                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0', borderBottom: '1px solid rgba(180,160,140,0.12)', fontFamily: 'var(--font-cormorant), Georgia, serif' }}>
                   <span style={{ fontSize: '0.9rem', fontWeight: 300, color: '#A89487', letterSpacing: '0.05em' }}>{label}</span>
                   <span style={{ fontSize: '0.9rem', fontWeight: 300, color: '#1E1510' }}>{valor}</span>
                 </div>
@@ -86,10 +86,10 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
             {/* Preço e CTA */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
-                <span style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '1.9rem', fontWeight: 700, color: '#1E1510' }}>
+                <span style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.9rem', fontWeight: 700, color: '#1E1510' }}>
                   R$ {produto.preco.toFixed(2).replace('.', ',')}
                 </span>
-                <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.6rem', fontWeight: 300, color: '#A89487', marginLeft: '0.5rem', letterSpacing: '0.1em' }}>à vista</span>
+                <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.6rem', fontWeight: 300, color: '#A89487', marginLeft: '0.5rem', letterSpacing: '0.1em' }}>à vista</span>
               </div>
               <AddToCartBtn produto={produto} />
             </div>

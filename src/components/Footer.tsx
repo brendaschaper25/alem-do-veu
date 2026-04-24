@@ -7,7 +7,7 @@ export default function Footer() {
       <style>{`
         .footer-link {
           display: block;
-          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-family: var(--font-cormorant), Georgia, serif;
           font-size: 1rem;
           font-weight: 300;
           color: #7A6355;
@@ -25,21 +25,21 @@ export default function Footer() {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', marginBottom: '0.4rem' }}>
                 <Moon size={15} strokeWidth={1.5} color="#6B4E8E" />
-                <span style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.2em', color: '#1E1510', textTransform: 'uppercase' }}>
+                <span style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.2em', color: '#1E1510', textTransform: 'uppercase' }}>
                   Além do Véu
                 </span>
               </div>
-              <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: '1.05rem', color: '#C9A84C', marginBottom: '1rem', marginLeft: '1.6rem' }}>
+              <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: '1.05rem', color: '#C9A84C', marginBottom: '1rem', marginLeft: '1.6rem' }}>
                 Para quem sente mais do que vê.
               </p>
-              <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '0.9rem', fontWeight: 300, color: '#7A6355', lineHeight: 1.7, maxWidth: '220px' }}>
+              <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: '0.9rem', fontWeight: 300, color: '#7A6355', lineHeight: 1.7, maxWidth: '220px' }}>
                 Curadoria de produtos esotéricos com intenção. Velas, incensos e cristais de Teófilo Otoni.
               </p>
             </div>
 
             {/* Nav */}
             <div>
-              <p style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 Navegação
               </p>
               {[['Início', '/'], ['Produtos', '/produtos'], ['Sobre', '/sobre']].map(([label, href]) => (
@@ -49,12 +49,12 @@ export default function Footer() {
 
             {/* Contact */}
             <div>
-              <p style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 Contato
               </p>
-              <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#7A6355', marginBottom: '0.4rem' }}>@alemdoveu</p>
-              <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#7A6355', marginBottom: '0.4rem' }}>contato@alemdoveu.com.br</p>
-              <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.8rem', color: '#A89487', marginTop: '1rem', lineHeight: 1.65 }}>
+              <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#7A6355', marginBottom: '0.4rem' }}>@alemdoveu</p>
+              <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#7A6355', marginBottom: '0.4rem' }}>contato@alemdoveu.com.br</p>
+              <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: '0.8rem', color: '#A89487', marginTop: '1rem', lineHeight: 1.65 }}>
                 Cristais direto de<br />Teófilo Otoni — MG
               </p>
             </div>
@@ -62,7 +62,7 @@ export default function Footer() {
 
           <div className="linha-ouro" style={{ marginBottom: '1.5rem' }} />
 
-          <p style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: '0.6rem', color: '#A89487', textAlign: 'center', letterSpacing: '0.14em' }}>
+          <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontWeight: 300, fontSize: '0.6rem', color: '#A89487', textAlign: 'center', letterSpacing: '0.14em' }}>
             © {new Date().getFullYear()} Além do Véu · Todos os direitos reservados
           </p>
         </div>

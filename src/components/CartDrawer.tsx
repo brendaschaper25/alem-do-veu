@@ -29,7 +29,7 @@ export default function CartDrawer() {
 
         {/* Header */}
         <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(180,160,140,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', textTransform: 'uppercase' }}>
             Seu Carrinho
           </span>
           <button onClick={fecharCarrinho} style={{ background: 'none', border: 'none', color: '#7A6355', cursor: 'pointer' }}>
@@ -42,7 +42,7 @@ export default function CartDrawer() {
           {itens.length === 0 ? (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: '1rem', opacity: 0.45 }}>
               <ShoppingBag size={40} strokeWidth={1} color="#A89487" />
-              <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '0.9rem', fontWeight: 300, letterSpacing: '0.15em', color: '#A89487' }}>
+              <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '0.9rem', fontWeight: 300, letterSpacing: '0.15em', color: '#A89487' }}>
                 Carrinho vazio
               </p>
             </div>
@@ -60,10 +60,10 @@ export default function CartDrawer() {
                   </div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.04em', color: '#1E1510', marginBottom: '0.2rem' }}>
+                    <p style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.04em', color: '#1E1510', marginBottom: '0.2rem' }}>
                       {produto.nome}
                     </p>
-                    <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '0.95rem', fontWeight: 300, color: '#C9A84C' }}>
+                    <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '0.95rem', fontWeight: 300, color: '#C9A84C' }}>
                       R$ {produto.preco.toFixed(2).replace('.', ',')}
                     </p>
 
@@ -74,7 +74,7 @@ export default function CartDrawer() {
                       >
                         <Minus size={10} />
                       </button>
-                      <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.8rem', fontWeight: 300, color: '#1E1510', minWidth: '20px', textAlign: 'center' }}>{quantidade}</span>
+                      <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.8rem', fontWeight: 300, color: '#1E1510', minWidth: '20px', textAlign: 'center' }}>{quantidade}</span>
                       <button
                         onClick={() => atualizarQtd(produto.id, quantidade + 1)}
                         style={{ background: '#EFE9DF', border: 'none', color: '#7A6355', width: 24, height: 24, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -100,8 +100,8 @@ export default function CartDrawer() {
         {itens.length > 0 && (
           <div style={{ padding: '1.5rem', borderTop: '1px solid rgba(180,160,140,0.15)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.25rem' }}>
-              <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.2em', color: '#7A6355', textTransform: 'uppercase' }}>Total</span>
-              <span style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '1.1rem', fontWeight: 700, color: '#1E1510' }}>
+              <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.2em', color: '#7A6355', textTransform: 'uppercase' }}>Total</span>
+              <span style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.1rem', fontWeight: 700, color: '#1E1510' }}>
                 R$ {total.toFixed(2).replace('.', ',')}
               </span>
             </div>

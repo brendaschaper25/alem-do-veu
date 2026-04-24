@@ -30,7 +30,7 @@ export default function CardPaymentBrick({ total, email, onSubmit, onError }: Pr
   if (!publicKey) {
     return (
       <div style={{ padding: '1.5rem', background: '#F8F5F0', border: '1px solid rgba(180,160,140,0.2)', textAlign: 'center' }}>
-        <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.9rem', color: '#A89487' }}>
+        <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.9rem', color: '#A89487' }}>
           Configure <code style={{ color: '#6B4E8E', fontFamily: 'monospace' }}>NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY</code> para ativar cartão.
         </p>
       </div>
@@ -38,7 +38,7 @@ export default function CardPaymentBrick({ total, email, onSubmit, onError }: Pr
   }
 
   if (!ready) return (
-    <div style={{ textAlign: 'center', padding: '2rem', fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, color: '#A89487', fontSize: '0.9rem' }}>
+    <div style={{ textAlign: 'center', padding: '2rem', fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, color: '#A89487', fontSize: '0.9rem' }}>
       Carregando formulário...
     </div>
   )
@@ -69,7 +69,7 @@ export default function CardPaymentBrick({ total, email, onSubmit, onError }: Pr
           },
         }}
       />
-      <p style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.1em', color: '#A89487', textAlign: 'center', marginTop: '0.75rem', lineHeight: 1.6 }}>
+      <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.1em', color: '#A89487', textAlign: 'center', marginTop: '0.75rem', lineHeight: 1.6 }}>
         Pagamento seguro via Mercado Pago · Dados criptografados
       </p>
     </>
