@@ -1,26 +1,136 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;1,300&family=Great+Vibes&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-roxo:          #2D1B54;
+  --color-roxo-medio:    #3D2464;
+  --color-lavanda:       #F0EAFF;
+  --color-lavanda-claro: #E0D3F5;
+  --color-lilas:         #C4B5D9;
+  --color-ouro:          #C9A84C;
+  --color-ouro-dim:      #A88830;
+  --color-ametista:      #7C5BA8;
+  --color-kraft:         #C4A882;
+  --color-mogno:         #7A5835;
+  --font-cinzel: 'Cinzel', Georgia, serif;
+  --font-lato:   'Lato', system-ui, sans-serif;
+  --font-script: 'Great Vibes', cursive;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #2D1B54;
+  color: #F0EAFF;
+  font-family: 'Lato', system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #2D1B54; }
+::-webkit-scrollbar-thumb { background: #C9A84C55; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #C9A84C; }
+::selection { background: #C9A84C33; color: #F0EAFF; }
+
+.font-cinzel { font-family: 'Cinzel', Georgia, serif; }
+.font-script  { font-family: 'Great Vibes', cursive; }
+
+.linha-ouro {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9A84C88, transparent);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: #C9A84C;
+  color: #2D1B54;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.btn-primary:hover { background: #A88830; transform: translateY(-1px); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: transparent;
+  color: #C9A84C;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border: 1px solid #C9A84C55;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.btn-outline:hover { border-color: #C9A84C; background: #C9A84C11; }
+
+.product-card {
+  position: relative;
+  background: linear-gradient(145deg, #3D2464 0%, #2D1B54 100%);
+  border: 1px solid #C4B5D920;
+  overflow: hidden;
+  transition: border-color 0.35s, transform 0.35s;
+}
+.product-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #C9A84C08, transparent);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.product-card:hover { border-color: #C9A84C44; transform: translateY(-4px); }
+.product-card:hover::after { opacity: 1; }
+
+.input-marca {
+  width: 100%;
+  background: #3D246430;
+  border: 1px solid #C4B5D930;
+  color: #F0EAFF;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.input-marca::placeholder { color: #C4B5D960; }
+.input-marca:focus { border-color: #C9A84C66; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.6s ease forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { animation: none; }
 }
