@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import MercadoPagoConfig, { Payment } from 'mercadopago'
-import { produtos } from '@/lib/produtos'
+import { produtosEstaticos } from '@/lib/produtos'
 
-// Validação Zod — só aceita o que esperamos, sem preço vindo do cliente
 const ItemSchema = z.object({
   produtoId: z.string().min(1).max(50),
   quantidade: z.number().int().min(1).max(99),
@@ -28,121 +27,171 @@ const CompradorSchema = z.object({
   estado: z.string().min(2).max(2),
 })
 
-const PedidoSchema = z.object({
+const PedidoPixSchema = z.object({
+  tipo: z.literal('pix'),
   itens: z.array(ItemSchema).min(1).max(20),
   frete: FreteSchema,
   comprador: CompradorSchema,
 })
 
+const PedidoCartaoSchema = z.object({
+  tipo: z.literal('cartao'),
+  itens: z.array(ItemSchema).min(1).max(20),
+  frete: FreteSchema,
+  comprador: CompradorSchema,
+  cartao: z.object({
+    token: z.string().min(1),
+    installments: z.number().int().min(1).max(12),
+    payment_method_id: z.string().min(1),
+    issuer_id: z.string(),
+    identificationType: z.string(),
+    identificationNumber: z.string().min(3).max(20),
+  }),
+})
+
+const PedidoSchema = z.discriminatedUnion('tipo', [PedidoPixSchema, PedidoCartaoSchema])
+
+function resolverItens(itens: { produtoId: string; quantidade: number }[]) {
+  const resolvidos = itens.map(item => {
+    const produto = produtosEstaticos.find(p => p.id === item.produtoId)
+    if (!produto || produto.estoque < item.quantidade) return null
+    return {
+      id: produto.id,
+      nome: produto.nome,
+      preco: produto.preco,
+      quantidade: item.quantidade,
+      subtotal: produto.preco * item.quantidade,
+    }
+  })
+  if (resolvidos.some(i => i === null)) return null
+  return resolvidos as NonNullable<typeof resolvidos[0]>[]
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-
-    // Valida estrutura do body
     const parsed = PedidoSchema.safeParse(body)
+
     if (!parsed.success) {
-      return NextResponse.json(
-        { erro: 'Dados do pedido inválidos.' },
-        { status: 400 }
-      )
+      return NextResponse.json({ erro: 'Dados do pedido inválidos.' }, { status: 400 })
     }
 
-    const { itens, frete, comprador } = parsed.data
+    const pedido = parsed.data
+    const itensValidos = resolverItens(pedido.itens)
 
-    // Busca preços no servidor — nunca usa preço enviado pelo cliente
-    const itensComPreco = itens.map(item => {
-      const produto = produtos.find(p => p.id === item.produtoId)
-      if (!produto) return null
-      if (produto.estoque < item.quantidade) return null
-      return {
-        id: produto.id,
-        nome: produto.nome,
-        preco: produto.preco, // ← fonte confiável: servidor
-        quantidade: item.quantidade,
-        subtotal: produto.preco * item.quantidade,
-      }
-    })
-
-    if (itensComPreco.some(i => i === null)) {
-      return NextResponse.json(
-        { erro: 'Um ou mais produtos não estão disponíveis.' },
-        { status: 422 }
-      )
+    if (!itensValidos) {
+      return NextResponse.json({ erro: 'Um ou mais produtos não estão disponíveis.' }, { status: 422 })
     }
 
-    const itensValidos = itensComPreco as NonNullable<typeof itensComPreco[0]>[]
     const totalItens = itensValidos.reduce((s, i) => s + i.subtotal, 0)
-    const totalFinal = +(totalItens + frete.preco).toFixed(2)
-
+    const totalFinal = +(totalItens + pedido.frete.preco).toFixed(2)
     const token = process.env.MERCADO_PAGO_TOKEN
 
-    // Modo preview sem token
+    // Modo preview — sem token configurado
     if (!token) {
-      return NextResponse.json({
-        pixCopiaECola: `00020126580014BR.GOV.BCB.PIX0136simulado-pix-alemdoveu-${Date.now()}5204000053039865406${String(totalFinal.toFixed(2)).replace('.', '')}5802BR5913Além do Véu6009TEOFILO62070503***6304ABCD`,
-        total: totalFinal,
-      })
+      if (pedido.tipo === 'pix') {
+        return NextResponse.json({
+          pixCopiaECola: `00020126580014BR.GOV.BCB.PIX0136simulado-${Date.now()}5204000053039865406${String(totalFinal.toFixed(2)).replace('.', '')}5802BR5913Além do Véu6009TEOFILO62070503***6304ABCD`,
+          total: totalFinal,
+        })
+      }
+      return NextResponse.json({ status: 'approved', total: totalFinal })
     }
 
     const mp = new MercadoPagoConfig({ accessToken: token })
     const payment = new Payment(mp)
+    const [firstName, ...rest] = pedido.comprador.nome.trim().split(' ')
 
-    const expiration = new Date()
-    expiration.setHours(expiration.getHours() + 24)
+    const basePayerInfo = {
+      email: pedido.comprador.email,
+      first_name: firstName,
+      last_name: rest.join(' ') || firstName,
+      address: {
+        zip_code: pedido.comprador.cep,
+        street_name: pedido.comprador.rua,
+        street_number: pedido.comprador.numero,
+        neighborhood: pedido.comprador.bairro,
+        city: pedido.comprador.cidade,
+        federal_unit: pedido.comprador.estado,
+      },
+    }
 
-    const [firstName, ...rest] = comprador.nome.trim().split(' ')
+    const additionalInfo = {
+      items: itensValidos.map(i => ({
+        id: i.id, title: i.nome, quantity: i.quantidade, unit_price: i.preco,
+      })),
+      shipments: {
+        receiver_address: {
+          zip_code: pedido.comprador.cep,
+          street_name: pedido.comprador.rua,
+          street_number: pedido.comprador.numero,
+          apartment: '',
+        },
+      },
+    }
+
+    const description = `Pedido Além do Véu — ${itensValidos.map(i => i.nome).join(', ')}`
+
+    // ── PIX ──────────────────────────────────────────────────────
+    if (pedido.tipo === 'pix') {
+      const expiration = new Date()
+      expiration.setHours(expiration.getHours() + 24)
+
+      const result = await payment.create({
+        body: {
+          transaction_amount: totalFinal,
+          payment_method_id: 'pix',
+          date_of_expiration: expiration.toISOString(),
+          payer: basePayerInfo,
+          additional_info: additionalInfo,
+          description,
+          notification_url: process.env.NEXT_PUBLIC_URL ? `${process.env.NEXT_PUBLIC_URL}/api/webhook` : undefined,
+        },
+      })
+
+      const pixCode = result.point_of_interaction?.transaction_data?.qr_code
+      if (!pixCode) {
+        return NextResponse.json({ erro: 'Não foi possível gerar o PIX. Tente novamente.' }, { status: 502 })
+      }
+
+      return NextResponse.json({ pixCopiaECola: pixCode, total: totalFinal, paymentId: result.id })
+    }
+
+    // ── CARTÃO ───────────────────────────────────────────────────
+    const { cartao } = pedido
 
     const result = await payment.create({
       body: {
         transaction_amount: totalFinal,
-        payment_method_id: 'pix',
-        date_of_expiration: expiration.toISOString(),
+        token: cartao.token,
+        installments: cartao.installments,
+        payment_method_id: cartao.payment_method_id,
+        issuer_id: cartao.issuer_id ? Number(cartao.issuer_id) : undefined,
         payer: {
-          email: comprador.email,
-          first_name: firstName,
-          last_name: rest.join(' ') || firstName,
-          address: {
-            zip_code: comprador.cep,
-            street_name: comprador.rua,
-            street_number: comprador.numero,
-            neighborhood: comprador.bairro,
-            city: comprador.cidade,
-            federal_unit: comprador.estado,
+          ...basePayerInfo,
+          identification: {
+            type: cartao.identificationType,
+            number: cartao.identificationNumber,
           },
         },
-        additional_info: {
-          items: itensValidos.map(i => ({
-            id: i.id,
-            title: i.nome,
-            quantity: i.quantidade,
-            unit_price: i.preco,
-          })),
-          shipments: {
-            receiver_address: {
-              zip_code: comprador.cep,
-              street_name: comprador.rua,
-              street_number: comprador.numero,
-              apartment: '',
-            },
-          },
-        },
-        description: `Pedido Além do Véu — ${itensValidos.map(i => i.nome).join(', ')}`,
-        notification_url: process.env.NEXT_PUBLIC_URL
-          ? `${process.env.NEXT_PUBLIC_URL}/api/webhook`
-          : undefined,
+        additional_info: additionalInfo,
+        description,
+        notification_url: process.env.NEXT_PUBLIC_URL ? `${process.env.NEXT_PUBLIC_URL}/api/webhook` : undefined,
       },
     })
 
-    const pixCode = result.point_of_interaction?.transaction_data?.qr_code
-
-    if (!pixCode) {
-      return NextResponse.json(
-        { erro: 'Não foi possível gerar o PIX. Tente novamente.' },
-        { status: 502 }
-      )
+    if (result.status === 'approved') {
+      return NextResponse.json({ status: 'approved', paymentId: result.id, total: totalFinal })
     }
 
-    return NextResponse.json({ pixCopiaECola: pixCode, total: totalFinal, paymentId: result.id })
+    if (result.status === 'in_process' || result.status === 'pending') {
+      return NextResponse.json({ status: 'in_process', paymentId: result.id, total: totalFinal })
+    }
+
+    return NextResponse.json(
+      { erro: 'Pagamento recusado. Verifique os dados e tente novamente.' },
+      { status: 422 }
+    )
   } catch {
     return NextResponse.json({ erro: 'Erro ao processar pagamento.' }, { status: 500 })
   }
