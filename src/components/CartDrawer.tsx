@@ -9,23 +9,18 @@ export default function CartDrawer() {
 
   return (
     <>
-      {/* Overlay */}
       {aberto && (
         <div
           onClick={fecharCarrinho}
-          style={{
-            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)',
-            zIndex: 200, backdropFilter: 'blur(2px)',
-          }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(30,21,16,0.35)', zIndex: 200, backdropFilter: 'blur(3px)' }}
         />
       )}
 
-      {/* Drawer */}
       <div style={{
         position: 'fixed', top: 0, right: 0, bottom: 0,
         width: 'min(420px, 100vw)',
-        background: '#2D1B54',
-        borderLeft: '1px solid rgba(196,181,217,0.15)',
+        background: '#F8F5F0',
+        borderLeft: '1px solid rgba(180,160,140,0.2)',
         zIndex: 201,
         transform: aberto ? 'translateX(0)' : 'translateX(100%)',
         transition: 'transform 0.35s cubic-bezier(0.4,0,0.2,1)',
@@ -33,11 +28,11 @@ export default function CartDrawer() {
       }}>
 
         {/* Header */}
-        <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(196,181,217,0.12)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontFamily: 'Cinzel, serif', fontSize: '0.75rem', letterSpacing: '0.25em', color: '#C9A84C', textTransform: 'uppercase' }}>
+        <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(180,160,140,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', textTransform: 'uppercase' }}>
             Seu Carrinho
           </span>
-          <button onClick={fecharCarrinho} style={{ background: 'none', border: 'none', color: '#E0D3F5', cursor: 'pointer' }}>
+          <button onClick={fecharCarrinho} style={{ background: 'none', border: 'none', color: '#7A6355', cursor: 'pointer' }}>
             <X size={18} strokeWidth={1.5} />
           </button>
         </div>
@@ -45,9 +40,9 @@ export default function CartDrawer() {
         {/* Itens */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '1rem 1.5rem' }}>
           {itens.length === 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: '1rem', opacity: 0.5 }}>
-              <ShoppingBag size={40} strokeWidth={1} color="#C4B5D9" />
-              <p style={{ fontFamily: 'Cinzel, serif', fontSize: '0.7rem', letterSpacing: '0.2em', color: '#C4B5D9', textTransform: 'uppercase' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: '1rem', opacity: 0.45 }}>
+              <ShoppingBag size={40} strokeWidth={1} color="#A89487" />
+              <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '0.9rem', fontWeight: 300, letterSpacing: '0.15em', color: '#A89487' }}>
                 Carrinho vazio
               </p>
             </div>
@@ -56,38 +51,43 @@ export default function CartDrawer() {
               {itens.map(({ produto, quantidade }) => (
                 <div key={produto.id} style={{
                   display: 'flex', gap: '1rem', alignItems: 'flex-start',
-                  padding: '1rem', background: 'rgba(61,36,100,0.4)',
-                  border: '1px solid rgba(196,181,217,0.1)',
+                  padding: '1rem',
+                  background: '#FFFFFF',
+                  border: '1px solid rgba(180,160,140,0.18)',
                 }}>
-                  {/* Imagem placeholder */}
-                  <div style={{ width: 56, height: 56, background: 'rgba(61,36,100,0.8)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: 52, height: 52, background: '#EFE9DF', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <span style={{ fontSize: '1.2rem' }}>🕯️</span>
                   </div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontFamily: 'Cinzel, serif', fontSize: '0.65rem', letterSpacing: '0.1em', color: '#F0EAFF', marginBottom: '0.25rem' }}>
+                    <p style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.04em', color: '#1E1510', marginBottom: '0.2rem' }}>
                       {produto.nome}
                     </p>
-                    <p style={{ fontSize: '0.75rem', color: '#C9A84C', fontWeight: 400 }}>
+                    <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '0.95rem', fontWeight: 300, color: '#C9A84C' }}>
                       R$ {produto.preco.toFixed(2).replace('.', ',')}
                     </p>
 
-                    {/* Controle de quantidade */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
-                      <button onClick={() => atualizarQtd(produto.id, quantidade - 1)}
-                        style={{ background: 'rgba(196,181,217,0.1)', border: 'none', color: '#E0D3F5', width: 24, height: 24, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <button
+                        onClick={() => atualizarQtd(produto.id, quantidade - 1)}
+                        style={{ background: '#EFE9DF', border: 'none', color: '#7A6355', width: 24, height: 24, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                      >
                         <Minus size={10} />
                       </button>
-                      <span style={{ fontSize: '0.8rem', color: '#F0EAFF', minWidth: '20px', textAlign: 'center' }}>{quantidade}</span>
-                      <button onClick={() => atualizarQtd(produto.id, quantidade + 1)}
-                        style={{ background: 'rgba(196,181,217,0.1)', border: 'none', color: '#E0D3F5', width: 24, height: 24, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.8rem', fontWeight: 300, color: '#1E1510', minWidth: '20px', textAlign: 'center' }}>{quantidade}</span>
+                      <button
+                        onClick={() => atualizarQtd(produto.id, quantidade + 1)}
+                        style={{ background: '#EFE9DF', border: 'none', color: '#7A6355', width: 24, height: 24, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                      >
                         <Plus size={10} />
                       </button>
                     </div>
                   </div>
 
-                  <button onClick={() => remover(produto.id)}
-                    style={{ background: 'none', border: 'none', color: '#C4B5D960', cursor: 'pointer', padding: '2px', flexShrink: 0 }}>
+                  <button
+                    onClick={() => remover(produto.id)}
+                    style={{ background: 'none', border: 'none', color: '#A89487', cursor: 'pointer', padding: '2px', flexShrink: 0 }}
+                  >
                     <X size={14} />
                   </button>
                 </div>
@@ -96,12 +96,12 @@ export default function CartDrawer() {
           )}
         </div>
 
-        {/* Footer com total */}
+        {/* Total */}
         {itens.length > 0 && (
-          <div style={{ padding: '1.5rem', borderTop: '1px solid rgba(196,181,217,0.12)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-              <span style={{ fontFamily: 'Cinzel, serif', fontSize: '0.65rem', letterSpacing: '0.15em', color: '#C4B5D9', textTransform: 'uppercase' }}>Total</span>
-              <span style={{ fontFamily: 'Cinzel, serif', fontSize: '0.9rem', color: '#C9A84C' }}>
+          <div style={{ padding: '1.5rem', borderTop: '1px solid rgba(180,160,140,0.15)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.25rem' }}>
+              <span style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.2em', color: '#7A6355', textTransform: 'uppercase' }}>Total</span>
+              <span style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '1.1rem', fontWeight: 700, color: '#1E1510' }}>
                 R$ {total.toFixed(2).replace('.', ',')}
               </span>
             </div>

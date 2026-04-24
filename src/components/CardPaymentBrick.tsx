@@ -29,16 +29,16 @@ export default function CardPaymentBrick({ total, email, onSubmit, onError }: Pr
 
   if (!publicKey) {
     return (
-      <div style={{ padding: '1.5rem', background: 'rgba(61,36,100,0.2)', border: '1px solid rgba(196,181,217,0.1)', textAlign: 'center' }}>
-        <p style={{ fontSize: '0.8rem', color: '#C4B5D9' }}>
-          Configure <code style={{ color: '#C9A84C' }}>NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY</code> para ativar cartão.
+      <div style={{ padding: '1.5rem', background: '#F8F5F0', border: '1px solid rgba(180,160,140,0.2)', textAlign: 'center' }}>
+        <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '0.9rem', color: '#A89487' }}>
+          Configure <code style={{ color: '#6B4E8E', fontFamily: 'monospace' }}>NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY</code> para ativar cartão.
         </p>
       </div>
     )
   }
 
   if (!ready) return (
-    <div style={{ textAlign: 'center', padding: '2rem', color: '#C4B5D9', fontSize: '0.8rem' }}>
+    <div style={{ textAlign: 'center', padding: '2rem', fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, color: '#A89487', fontSize: '0.9rem' }}>
       Carregando formulário...
     </div>
   )
@@ -53,23 +53,23 @@ export default function CardPaymentBrick({ total, email, onSubmit, onError }: Pr
           paymentMethods: { maxInstallments: 12 },
           visual: {
             style: {
-              theme: 'dark',
+              theme: 'default',
               customVariables: {
-                baseColor: '#C9A84C',
-                baseColorFirstVariant: '#7C5BA8',
-                baseColorSecondVariant: '#3D2464',
-                errorColor: '#ff6b6b',
-                textPrimaryColor: '#F0EAFF',
-                textSecondaryColor: '#C4B5D9',
-                inputBackgroundColor: 'rgba(61,36,100,0.3)',
+                baseColor: '#6B4E8E',
+                baseColorFirstVariant: '#543D72',
+                baseColorSecondVariant: '#EFE9DF',
+                errorColor: '#c0392b',
+                textPrimaryColor: '#1E1510',
+                textSecondaryColor: '#7A6355',
+                inputBackgroundColor: '#FFFFFF',
                 formBackgroundColor: 'transparent',
-                inputFocusedBorderColor: '#C9A84C',
+                inputFocusedBorderColor: '#6B4E8E',
               },
             },
           },
         }}
       />
-      <p style={{ fontSize: '0.65rem', color: '#C4B5D9', textAlign: 'center', marginTop: '0.5rem', lineHeight: 1.6 }}>
+      <p style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.1em', color: '#A89487', textAlign: 'center', marginTop: '0.75rem', lineHeight: 1.6 }}>
         Pagamento seguro via Mercado Pago · Dados criptografados
       </p>
     </>
