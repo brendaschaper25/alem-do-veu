@@ -5,9 +5,6 @@ export const configuracaoLojaSchema = defineType({
   title: 'Configuração da Loja',
   type: 'document',
 
-  // Documento singleton — só deve existir um
-  __experimental_actions: ['update', 'publish'],
-
   fields: [
 
     // ── Faixa de anúncio (barra preta no topo) ──────────────
