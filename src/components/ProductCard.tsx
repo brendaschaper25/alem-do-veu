@@ -34,7 +34,7 @@ export default function ProductCard({ produto }: { produto: Produto }) {
 
       {/* Info */}
       <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-        <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.3em', color: '#6B4E8E', textTransform: 'uppercase' }}>
+        <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.15em', color: '#6B4E8E', textTransform: 'uppercase' }}>
           {produto.categoria}
         </span>
         <Link href={`/produtos/${produto.slug}`} style={{ textDecoration: 'none' }}>
@@ -46,7 +46,7 @@ export default function ProductCard({ produto }: { produto: Produto }) {
           {produto.descricao}
         </p>
         {produto.intencao && (
-          <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: '1rem', color: '#C9A84C', margin: 0 }}>
+          <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '0.9rem', fontWeight: 300, color: '#C9A84C', margin: 0, letterSpacing: '0.04em' }}>
             {produto.intencao}
           </p>
         )}

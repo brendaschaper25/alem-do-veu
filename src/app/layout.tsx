@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Bodoni_Moda, Cormorant_Garamond, Lato, Great_Vibes } from 'next/font/google'
+import { Bodoni_Moda, Cormorant_Garamond, Lato } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -31,12 +31,6 @@ const lato = Lato({
   display: 'swap',
 })
 
-const greatVibes = Great_Vibes({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-script',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: 'Além do Véu | Loja Esotérica',
@@ -57,7 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${bodoni.variable} ${cormorant.variable} ${lato.variable} ${greatVibes.variable}`}
+      className={`${bodoni.variable} ${cormorant.variable} ${lato.variable}`}
     >
       <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <AnnouncementBar promos={config.announcementBar} />

@@ -9,7 +9,7 @@ export default function SobrePage() {
 
         <Moon size={20} strokeWidth={1} color="#C9A84C" style={{ margin: '0 auto 1.5rem', display: 'block', opacity: 0.8 }} />
 
-        <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.38em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
+        <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.15em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
           Além do Véu
         </p>
 
@@ -31,7 +31,7 @@ export default function SobrePage() {
           </p>
         </div>
 
-        <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: '1.7rem', color: '#C9A84C', margin: '3rem 0 2.5rem' }}>
+        <p style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.5rem', fontWeight: 400, color: '#C9A84C', margin: '3rem 0 2.5rem', lineHeight: 1.5 }}>
           "Para quem sente mais do que vê."
         </p>
 

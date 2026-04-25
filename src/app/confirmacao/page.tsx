@@ -35,14 +35,14 @@ function ConfirmacaoContent() {
         <h1 style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.6rem', fontWeight: 700, color: '#1E1510', letterSpacing: '0.06em', marginBottom: '0.75rem' }}>
           {status === 'pendente' ? 'Pedido em Análise' : 'Pedido Recebido'}
         </h1>
-        <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: '1.4rem', color: '#C9A84C', marginBottom: '2rem' }}>
+        <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '1.2rem', fontWeight: 300, color: '#C9A84C', marginBottom: '2rem', letterSpacing: '0.04em' }}>
           O que chegou até você não foi por acaso.
         </p>
 
         {/* PIX */}
         {tipo === 'pix' && (
           <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '2rem', marginBottom: '2rem' }}>
-            <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Total a pagar</p>
+            <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.15em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Total a pagar</p>
             <p style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '2rem', fontWeight: 700, color: '#1E1510', marginBottom: '1.5rem' }}>
               {totalFormatado}
             </p>
@@ -70,7 +70,7 @@ function ConfirmacaoContent() {
         {/* CARTÃO APROVADO */}
         {tipo === 'cartao' && status !== 'pendente' && (
           <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '2rem', marginBottom: '2rem' }}>
-            <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#6B4E8E', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Pagamento aprovado</p>
+            <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.15em', color: '#6B4E8E', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Pagamento aprovado</p>
             <p style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '2rem', fontWeight: 700, color: '#1E1510', marginBottom: '0.5rem' }}>
               {totalFormatado}
             </p>
@@ -92,7 +92,7 @@ function ConfirmacaoContent() {
         {/* CARTÃO EM ANÁLISE */}
         {tipo === 'cartao' && status === 'pendente' && (
           <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '2rem', marginBottom: '2rem' }}>
-            <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Aguardando confirmação</p>
+            <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.15em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Aguardando confirmação</p>
             <p style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '2rem', fontWeight: 700, color: '#1E1510', marginBottom: '1rem' }}>
               {totalFormatado}
             </p>

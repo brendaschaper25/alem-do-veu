@@ -29,7 +29,7 @@ export default function Footer() {
                   Além do Véu
                 </span>
               </div>
-              <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: '1.05rem', color: '#C9A84C', marginBottom: '1rem', marginLeft: '1.6rem' }}>
+              <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '1rem', fontWeight: 300, color: '#C9A84C', marginBottom: '1rem', marginLeft: '1.6rem', letterSpacing: '0.04em' }}>
                 Para quem sente mais do que vê.
               </p>
               <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: '0.9rem', fontWeight: 300, color: '#7A6355', lineHeight: 1.7, maxWidth: '220px' }}>
@@ -39,7 +39,7 @@ export default function Footer() {
 
             {/* Nav */}
             <div>
-              <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.15em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 Navegação
               </p>
               {[['Início', '/'], ['Produtos', '/produtos'], ['Sobre', '/sobre']].map(([label, href]) => (
@@ -49,7 +49,7 @@ export default function Footer() {
 
             {/* Contact */}
             <div>
-              <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <p style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.15em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 Contato
               </p>
               <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: '0.95rem', color: '#7A6355', marginBottom: '0.4rem' }}>@alemdoveu</p>

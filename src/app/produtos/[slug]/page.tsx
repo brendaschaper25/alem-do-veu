@@ -53,13 +53,13 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
 
           {/* Info */}
           <div>
-            <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.3em', color: '#6B4E8E', textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
+            <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.52rem', fontWeight: 300, letterSpacing: '0.15em', color: '#6B4E8E', textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
               {produto.categoria}
             </span>
             <h1 style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 700, color: '#1E1510', letterSpacing: '0.03em', marginBottom: '0.5rem', lineHeight: 1.2 }}>
               {produto.nome}
             </h1>
-            <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: '1.2rem', color: '#C9A84C', marginBottom: '1.5rem' }}>
+            <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '1.1rem', fontWeight: 300, color: '#C9A84C', marginBottom: '1.5rem', letterSpacing: '0.04em' }}>
               {produto.intencao}
             </p>
 

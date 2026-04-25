@@ -82,7 +82,7 @@ export default function ProductFilters({ categoriaAtiva, faixaAtiva, ordemAtiva 
 
       {/* Título + limpar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-        <span style={{ fontFamily: 'var(--font-lato)', fontSize: '0.5rem', fontWeight: 300, letterSpacing: '0.32em', color: '#C9A84C', textTransform: 'uppercase' }}>
+        <span style={{ fontFamily: 'var(--font-lato)', fontSize: '0.5rem', fontWeight: 300, letterSpacing: '0.15em', color: '#C9A84C', textTransform: 'uppercase' }}>
           Filtros
         </span>
         {temFiltro && (

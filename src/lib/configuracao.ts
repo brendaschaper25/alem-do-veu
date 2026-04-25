@@ -21,6 +21,7 @@ export interface HeroSlide {
   ctaLabel: string
   ctaHref: string
   tema: string
+  imagemUrl?: string
 }
 
 export interface BannerPromo {

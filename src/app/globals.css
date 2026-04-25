@@ -19,7 +19,6 @@
   --f-bodoni:    var(--font-bodoni), Georgia, serif;
   --f-cormorant: var(--font-cormorant), Georgia, serif;
   --f-lato:      var(--font-lato), system-ui, sans-serif;
-  --f-script:    var(--font-script), cursive;
 
   /* Alturas fixas — evita magic numbers por todo o projeto */
   --bar-h:  36px;
@@ -51,7 +50,6 @@ body {
 .font-bodoni    { font-family: var(--font-bodoni), Georgia, serif; }
 .font-cormorant { font-family: var(--font-cormorant), Georgia, serif; }
 .font-lato      { font-family: var(--font-lato), system-ui, sans-serif; }
-.font-script    { font-family: var(--font-script), cursive; }
 
 /* ── Ornamento ─────────────────────────────────────── */
 .linha-ouro {

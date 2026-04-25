@@ -62,6 +62,7 @@ export const configuracaoLojaQuery = groq`
     announcementBar,
     heroSlides[] {
       tag, titulo, subtitulo, ctaLabel, ctaHref, tema,
+      "imagemUrl": imagem.asset->url,
     },
     bannersPromo[] {
       tag, titulo, desc, href, tema,

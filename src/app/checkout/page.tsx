@@ -141,7 +141,7 @@ export default function CheckoutPage() {
     fontFamily: 'var(--font-lato), system-ui, sans-serif' as const,
     fontSize: '0.52rem',
     fontWeight: 300 as const,
-    letterSpacing: '0.25em',
+    letterSpacing: '0.15em',
     color: '#A89487',
     textTransform: 'uppercase' as const,
     display: 'block',
@@ -163,7 +163,7 @@ export default function CheckoutPage() {
 
             {/* Dados pessoais */}
             <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem' }}>
-              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.18em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
                 Dados Pessoais
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
@@ -183,7 +183,7 @@ export default function CheckoutPage() {
 
             {/* Endereço */}
             <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem' }}>
-              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.18em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
                 Endereço de Entrega
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
             {/* Frete */}
             {fretes.length > 0 && (
               <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem' }}>
-                <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+                <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.18em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
                   Opções de Frete
                 </h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -250,7 +250,7 @@ export default function CheckoutPage() {
 
             {/* Pagamento */}
             <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem' }}>
-              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+              <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.18em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
                 Forma de Pagamento
               </h2>
 
@@ -300,7 +300,7 @@ export default function CheckoutPage() {
 
           {/* Resumo */}
           <div style={{ background: '#FFFFFF', border: '1px solid rgba(180,160,140,0.2)', padding: '1.75rem', position: 'sticky', top: '6rem' }}>
-            <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+            <h2 style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.58rem', fontWeight: 300, letterSpacing: '0.18em', color: '#6B4E8E', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
               Resumo
             </h2>
 

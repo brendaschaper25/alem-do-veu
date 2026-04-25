@@ -145,7 +145,7 @@ export default async function Home() {
       {/* ── Frase ─────────────────────────────────────────── */}
       <section style={{ padding: '7rem 2rem', textAlign: 'center', background: '#F8F5F0' }}>
         <Moon size={22} strokeWidth={1} color="#C9A84C" style={{ margin: '0 auto 1.5rem', display: 'block', opacity: 0.65 }} />
-        <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', color: '#1E1510', opacity: 0.75, maxWidth: '700px', margin: '0 auto', lineHeight: 1.4 }}>
+        <p style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: 'clamp(1.4rem, 3vw, 2.2rem)', fontWeight: 400, color: '#1E1510', opacity: 0.75, maxWidth: '700px', margin: '0 auto', lineHeight: 1.5 }}>
           "{config.fraseDestaque}"
         </p>
         <div className="linha-ouro" style={{ maxWidth: '160px', margin: '2rem auto 0' }} />

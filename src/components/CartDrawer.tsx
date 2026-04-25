@@ -29,7 +29,7 @@ export default function CartDrawer() {
 
         {/* Header */}
         <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(180,160,140,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.28em', color: '#6B4E8E', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: 'var(--font-lato), system-ui, sans-serif', fontSize: '0.6rem', fontWeight: 300, letterSpacing: '0.18em', color: '#6B4E8E', textTransform: 'uppercase' }}>
             Seu Carrinho
           </span>
           <button onClick={fecharCarrinho} style={{ background: 'none', border: 'none', color: '#7A6355', cursor: 'pointer' }}>

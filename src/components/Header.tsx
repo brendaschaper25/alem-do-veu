@@ -58,7 +58,7 @@ export default function Header() {
               </span>
               <span style={{
                 fontFamily: 'var(--font-lato), system-ui, sans-serif',
-                fontSize: '0.47rem', fontWeight: 300, letterSpacing: '0.28em',
+                fontSize: '0.47rem', fontWeight: 300, letterSpacing: '0.18em',
                 color: corSub, textTransform: 'uppercase', marginTop: '3px',
                 transition: 'color 0.4s',
               }}>

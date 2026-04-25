@@ -69,10 +69,17 @@ export const configuracaoLojaSchema = defineType({
               validation: r => r.required(),
             }),
             defineField({
+              name: 'imagem',
+              title: 'Foto de Fundo (opcional)',
+              type: 'image',
+              description: 'Foto que aparece ao fundo do slide. Use imagens escuras ou com boa textura. Resolução mínima: 1400×900px.',
+              options: { hotspot: true },
+            }),
+            defineField({
               name: 'tema',
               title: 'Tema de Cor',
               type: 'string',
-              description: 'Define a cor de fundo e o acento do slide.',
+              description: 'Define o acento e a sobreposição de cor sobre a foto (ou o fundo quando não há foto).',
               options: {
                 list: [
                   { title: '🟣 Violeta (roxo profundo)', value: 'violeta' },
@@ -86,8 +93,8 @@ export const configuracaoLojaSchema = defineType({
             }),
           ],
           preview: {
-            select: { title: 'titulo', subtitle: 'tag' },
-            prepare: ({ title, subtitle }) => ({ title, subtitle }),
+            select: { title: 'titulo', subtitle: 'tag', media: 'imagem' },
+            prepare: ({ title, subtitle, media }) => ({ title, subtitle, media }),
           },
         },
       ],

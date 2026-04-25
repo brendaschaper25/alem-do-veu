@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { HeroSlide } from '@/lib/configuracao'
@@ -45,10 +46,30 @@ export default function HeroSlider({ slides }: Props) {
         return (
           <div key={i} style={{
             position: 'absolute', inset: 0,
-            background: t.bg,
             opacity: i === current ? 1 : 0,
             transition: 'opacity 0.9s ease',
-          }} />
+          }}>
+            {s.imagemUrl ? (
+              <>
+                {/* Foto de fundo */}
+                <Image
+                  src={s.imagemUrl}
+                  alt=""
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  priority={i === 0}
+                  sizes="100vw"
+                />
+                {/* Camada escura para legibilidade */}
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.55)' }} />
+                {/* Tinte de cor do tema — atmosfera leve */}
+                <div style={{ position: 'absolute', inset: 0, background: t.bg, opacity: 0.40 }} />
+              </>
+            ) : (
+              /* Sem foto — usa gradiente sólido */
+              <div style={{ position: 'absolute', inset: 0, background: t.bg }} />
+            )}
+          </div>
         )
       })}
 
@@ -101,7 +122,7 @@ export default function HeroSlider({ slides }: Props) {
         <h1 style={{
           fontFamily: 'var(--font-bodoni), Georgia, serif',
           fontSize: 'clamp(2.8rem, 8vw, 7rem)',
-          fontWeight: 700, color: '#FFFFFF',
+          fontWeight: 400, color: '#FFFFFF',
           lineHeight: 1.04, letterSpacing: '0.02em',
           marginBottom: '1.5rem', whiteSpace: 'pre-line',
           textShadow: '0 4px 48px rgba(0,0,0,0.35)',
@@ -118,7 +139,7 @@ export default function HeroSlider({ slides }: Props) {
         <p style={{
           fontFamily: 'var(--font-cormorant), Georgia, serif',
           fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
-          fontWeight: 300, fontStyle: 'italic',
+          fontWeight: 300,
           color: 'rgba(255,255,255,0.68)',
           lineHeight: 1.75, marginBottom: '2.5rem', maxWidth: '520px',
         }}>
