@@ -4,6 +4,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AnnouncementBar from '@/components/AnnouncementBar'
+import { getConfiguracaoLoja } from '@/lib/configuracao'
 
 // next/font carrega fontes direto no servidor — mais confiável que @import
 const bodoni = Bodoni_Moda({
@@ -49,7 +50,9 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const config = await getConfiguracaoLoja()
+
   return (
     <html
       lang="pt-BR"
@@ -57,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${bodoni.variable} ${cormorant.variable} ${lato.variable} ${greatVibes.variable}`}
     >
       <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <AnnouncementBar />
+        <AnnouncementBar promos={config.announcementBar} />
         <Header />
         <main style={{ flex: 1 }}>
           {children}

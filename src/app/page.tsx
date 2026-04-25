@@ -3,25 +3,7 @@ import { Moon, ArrowRight } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import HeroSlider from '@/components/HeroSlider'
 import { getProdutos } from '@/lib/produtos'
-
-// ── EDITE AQUI: banners de promoção ──────────────────────────
-const BANNERS = [
-  {
-    tag: 'Destaque da semana',
-    titulo: 'Cristais de Teófilo Otoni',
-    desc: 'Direto da capital mundial das pedras preciosas — autenticidade garantida.',
-    href: '/produtos?categoria=cristais',
-    cor: '#6B4E8E',
-  },
-  {
-    tag: 'Kit especial',
-    titulo: 'Kit Ritual Completo',
-    desc: 'Vela + incenso + cristal selecionados para cada intenção.',
-    href: '/produtos?categoria=kits',
-    cor: '#C9A84C',
-  },
-]
-// ─────────────────────────────────────────────────────────────
+import { getConfiguracaoLoja, CORES_BANNER } from '@/lib/configuracao'
 
 const categorias = [
   { slug: 'velas',    label: 'Velas',    icon: '🕯️', desc: 'Intenção e energia' },
@@ -31,14 +13,14 @@ const categorias = [
 ]
 
 export default async function Home() {
-  const todos = await getProdutos()
+  const [todos, config] = await Promise.all([getProdutos(), getConfiguracaoLoja()])
   const destaques = todos.filter(p => p.destaque).slice(0, 4)
   const exibidos = destaques.length >= 2 ? destaques : todos.slice(0, 4)
 
   return (
     <>
-      {/* ── Hero com slideshow ────────────────────────────── */}
-      <HeroSlider />
+      {/* ── Hero com slideshow (conteúdo via Sanity) ─────── */}
+      <HeroSlider slides={config.heroSlides} />
 
       {/* ── Categorias ────────────────────────────────────── */}
       <section style={{ padding: '5rem 2rem', background: '#F8F5F0' }}>
@@ -78,14 +60,16 @@ export default async function Home() {
 
       <div className="linha-ouro" />
 
-      {/* ── Banners Promo ─────────────────────────────────── */}
+      {/* ── Banners Promo (via Sanity) ────────────────────── */}
       <section style={{ padding: '4rem 2rem', background: '#EFE9DF' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-          {BANNERS.map((b, i) => (
+          {config.bannersPromo.map((b, i) => {
+            const cor = CORES_BANNER[b.tema] ?? '#6B4E8E'
+            return (
             <Link key={i} href={b.href} style={{ textDecoration: 'none' }}>
               <div className="product-card" style={{ padding: '2.5rem', cursor: 'pointer', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: b.cor }} />
-                <span style={{ fontFamily: 'var(--font-lato)', fontSize: '0.48rem', fontWeight: 300, letterSpacing: '0.22em', color: b.cor, textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: cor }} />
+                <span style={{ fontFamily: 'var(--font-lato)', fontSize: '0.48rem', fontWeight: 300, letterSpacing: '0.22em', color: cor, textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
                   {b.tag}
                 </span>
                 <h3 style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.4rem', fontWeight: 700, color: '#1E1510', marginBottom: '0.75rem' }}>
@@ -94,13 +78,14 @@ export default async function Home() {
                 <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '1rem', fontWeight: 300, color: '#7A6355', lineHeight: 1.7 }}>
                   {b.desc}
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '1.25rem', color: b.cor }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '1.25rem', color: cor }}>
                   <span style={{ fontFamily: 'var(--font-lato)', fontSize: '0.55rem', fontWeight: 300, letterSpacing: '0.15em', textTransform: 'uppercase' }}>Ver coleção</span>
                   <ArrowRight size={12} />
                 </div>
               </div>
             </Link>
-          ))}
+            )
+          })}
         </div>
 
         <style>{`
@@ -161,7 +146,7 @@ export default async function Home() {
       <section style={{ padding: '7rem 2rem', textAlign: 'center', background: '#F8F5F0' }}>
         <Moon size={22} strokeWidth={1} color="#C9A84C" style={{ margin: '0 auto 1.5rem', display: 'block', opacity: 0.65 }} />
         <p style={{ fontFamily: 'var(--font-script), cursive', fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', color: '#1E1510', opacity: 0.75, maxWidth: '700px', margin: '0 auto', lineHeight: 1.4 }}>
-          "A fumaça sabe o caminho. Você só precisa seguir."
+          "{config.fraseDestaque}"
         </p>
         <div className="linha-ouro" style={{ maxWidth: '160px', margin: '2rem auto 0' }} />
       </section>

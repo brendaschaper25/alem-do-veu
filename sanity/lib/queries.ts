@@ -56,3 +56,16 @@ export const produtosPorCategoriaQuery = groq`
 export const slugsQuery = groq`
   *[_type == "produto"] { "slug": slug.current }
 `
+
+export const configuracaoLojaQuery = groq`
+  *[_type == "configuracaoLoja"][0] {
+    announcementBar,
+    heroSlides[] {
+      tag, titulo, subtitulo, ctaLabel, ctaHref, tema,
+    },
+    bannersPromo[] {
+      tag, titulo, desc, href, tema,
+    },
+    fraseDestaque,
+  }
+`

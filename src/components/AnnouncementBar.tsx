@@ -1,20 +1,14 @@
-// ═══════════════════════════════════════════════════════════
-//  EDITE AQUI para mudar o texto da faixa de promoção no topo
-// ═══════════════════════════════════════════════════════════
-const PROMOS = [
-  '⚡ 5% de desconto no PIX',
-  '🌿 Frete grátis acima de R$ 150',
-  '💎 Cristais direto de Teófilo Otoni — MG',
-]
-// ═══════════════════════════════════════════════════════════
+// Conteúdo gerenciado via Sanity → Configuração da Loja → Faixa de Anúncio
 
-export default function AnnouncementBar() {
+interface Props {
+  promos: string[]
+}
+
+export default function AnnouncementBar({ promos }: Props) {
   return (
     <div style={{
       position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
+      top: 0, left: 0, right: 0,
       zIndex: 110,
       height: '36px',
       background: '#1E1510',
@@ -25,7 +19,7 @@ export default function AnnouncementBar() {
       padding: '0 1rem',
       overflow: 'hidden',
     }}>
-      {PROMOS.map((promo, i) => (
+      {promos.map((promo, i) => (
         <span key={i} style={{
           fontFamily: 'var(--font-lato), system-ui, sans-serif',
           fontSize: '0.6rem',
@@ -38,7 +32,7 @@ export default function AnnouncementBar() {
           gap: '0.4rem',
         }}>
           {promo}
-          {i < PROMOS.length - 1 && (
+          {i < promos.length - 1 && (
             <span style={{ color: '#C9A84C', marginLeft: '2rem', opacity: 0.5 }}>·</span>
           )}
         </span>
