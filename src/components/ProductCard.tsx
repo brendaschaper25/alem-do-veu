@@ -3,10 +3,7 @@ import Link from 'next/link'
 import { ShoppingBag } from 'lucide-react'
 import { useCarrinho } from '@/lib/store'
 import type { Produto } from '@/lib/produtos'
-
-const emojiCategoria: Record<string, string> = {
-  velas: '🕯️', incensos: '🌿', cristais: '💎', kits: '✨',
-}
+import CategoriaIcon from './CategoriaIcon'
 
 export default function ProductCard({ produto }: { produto: Produto }) {
   const { adicionar } = useCarrinho()
@@ -20,10 +17,10 @@ export default function ProductCard({ produto }: { produto: Produto }) {
           background: '#EFE9DF',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           borderBottom: '1px solid rgba(180,160,140,0.15)',
-          fontSize: '3rem', position: 'relative', overflow: 'hidden',
+          position: 'relative', overflow: 'hidden',
         }}>
-          <span style={{ position: 'relative', zIndex: 1 }}>
-            {emojiCategoria[produto.categoria] ?? '✦'}
+          <span style={{ position: 'relative', zIndex: 1, color: '#C9A84C', opacity: 0.75 }}>
+            <CategoriaIcon categoria={produto.categoria} size={44} strokeWidth={1} />
           </span>
           <div style={{
             position: 'absolute', inset: 0,

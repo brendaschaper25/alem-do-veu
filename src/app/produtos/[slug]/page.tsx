@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getProduto, getSlugs } from '@/lib/produtos'
 import AddToCartBtn from './AddToCartBtn'
+import CategoriaIcon from '@/components/CategoriaIcon'
 
 export async function generateStaticParams() {
   const slugs = await getSlugs()
@@ -46,8 +47,8 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
             fontSize: '5rem', position: 'relative', overflow: 'hidden',
           }}>
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 60%, rgba(201,168,76,0.07), transparent 70%)' }} />
-            <span style={{ position: 'relative', zIndex: 1 }}>
-              {{ velas: '🕯️', incensos: '🌿', cristais: '💎', kits: '✨' }[produto.categoria] ?? '✦'}
+            <span style={{ position: 'relative', zIndex: 1, color: '#C9A84C', opacity: 0.75 }}>
+              <CategoriaIcon categoria={produto.categoria} size={64} strokeWidth={1} />
             </span>
           </div>
 

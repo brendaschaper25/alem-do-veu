@@ -1,7 +1,7 @@
 'use client'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
-import { CheckCircle, Clock, Copy } from 'lucide-react'
+import { CheckCircle, Clock, Copy, Package, Mail } from 'lucide-react'
 import { useState } from 'react'
 
 function ConfirmacaoContent() {
@@ -56,9 +56,9 @@ function ConfirmacaoContent() {
               <Copy size={14} />
               {copiado ? 'Copiado!' : 'Copiar código PIX'}
             </button>
-            <div style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '1rem', fontWeight: 300, color: '#7A6355', lineHeight: 1.9, marginTop: '1.5rem', textAlign: 'left' }}>
+            <div style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontSize: '1rem', fontWeight: 300, color: '#7A6355', lineHeight: 2, marginTop: '1.5rem', textAlign: 'left' }}>
               <p>1. Abra o app do seu banco</p>
-              <p>2. Escolha pagar com PIX → Copia e Cola</p>
+              <p>2. Escolha pagar com PIX — Copia e Cola</p>
               <p>3. Cole o código acima e confirme</p>
             </div>
             <p style={{ marginTop: '1rem', fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, color: '#6B4E8E', fontSize: '0.9rem' }}>
@@ -80,11 +80,11 @@ function ConfirmacaoContent() {
               </p>
             )}
             <div style={{ background: '#F8F5F0', border: '1px solid rgba(107,78,142,0.12)', padding: '1rem', marginTop: '1rem' }}>
-              <p style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.95rem', color: '#7A6355', lineHeight: 1.9 }}>
-                ✅ Pagamento confirmado<br />
-                📦 Seu pedido será preparado em até 1 dia útil<br />
-                📧 Você receberá um e-mail com o rastreio
-              </p>
+              <div style={{ fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 300, fontSize: '0.95rem', color: '#7A6355', lineHeight: 2, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><CheckCircle size={14} strokeWidth={1.5} color="#6B4E8E" /> Pagamento confirmado</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Package size={14} strokeWidth={1.5} color="#C9A84C" /> Seu pedido será preparado em até 1 dia útil</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Mail size={14} strokeWidth={1.5} color="#A89487" /> Você receberá um e-mail com o rastreio</span>
+              </div>
             </div>
           </div>
         )}

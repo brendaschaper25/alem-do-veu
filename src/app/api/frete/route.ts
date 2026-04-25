@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import { checkRateLimit } from '@/lib/rateLimit'
 
 const CEP_ORIGEM = '39800000'
 
@@ -9,6 +10,11 @@ const FreteInputSchema = z.object({
 })
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  if (!checkRateLimit(ip, 20, 60_000)) {
+    return NextResponse.json({ erro: 'Muitas tentativas. Aguarde um momento.' }, { status: 429 })
+  }
+
   try {
     const body = await req.json()
     const parsed = FreteInputSchema.safeParse(body)

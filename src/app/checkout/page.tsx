@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useCarrinho, totalCarrinho } from '@/lib/store'
 import { useRouter } from 'next/navigation'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Zap, CreditCard } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 const CardPaymentBrick = dynamic(() => import('@/components/CardPaymentBrick'), { ssr: false })
@@ -256,7 +256,7 @@ export default function CheckoutPage() {
 
               {/* Abas */}
               <div style={{ display: 'flex', marginBottom: '1.5rem', border: '1px solid rgba(180,160,140,0.2)' }}>
-                {([['pix', '⚡ PIX'], ['cartao', '💳 Cartão de Crédito']] as [Aba, string][]).map(([id, label]) => (
+                {([['pix', 'PIX', Zap], ['cartao', 'Cartão de Crédito', CreditCard]] as [Aba, string, typeof Zap][]).map(([id, label, Icon]) => (
                   <button
                     key={id}
                     onClick={() => setAba(id)}
@@ -267,16 +267,17 @@ export default function CheckoutPage() {
                       background: aba === id ? '#6B4E8E' : 'transparent',
                       color: aba === id ? '#F8F5F0' : '#A89487',
                       transition: 'all 0.2s',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
                     }}
                   >
-                    {label}
+                    <Icon size={12} strokeWidth={1.5} /> {label}
                   </button>
                 ))}
               </div>
 
               {aba === 'pix' && (
                 <div style={{ textAlign: 'center', padding: '1.5rem 0' }}>
-                  <p style={{ fontSize: '2.2rem', marginBottom: '0.75rem' }}>⚡</p>
+                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem', color: '#C9A84C' }}><Zap size={32} strokeWidth={1.5} /></div>
                   <p style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontWeight: 700, fontSize: '0.95rem', color: '#1E1510', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
                     Pague com PIX
                   </p>
@@ -352,7 +353,7 @@ export default function CheckoutPage() {
               >
                 {loadingPagamento
                   ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> Processando...</>
-                  : '⚡ Gerar PIX'}
+                  : <><Zap size={14} strokeWidth={1.5} /> Gerar PIX</>}
               </button>
             )}
 

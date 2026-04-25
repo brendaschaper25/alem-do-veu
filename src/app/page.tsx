@@ -1,15 +1,25 @@
 import Link from 'next/link'
-import { Moon, ArrowRight } from 'lucide-react'
+import { Moon, ArrowRight, Flame, Leaf, Gem, Sparkles, Package } from 'lucide-react'
+import type { LucideProps } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import HeroSlider from '@/components/HeroSlider'
 import { getProdutos } from '@/lib/produtos'
 import { getConfiguracaoLoja, CORES_BANNER } from '@/lib/configuracao'
 
-const categorias = [
-  { slug: 'velas',    label: 'Velas',    icon: '🕯️', desc: 'Intenção e energia' },
-  { slug: 'incensos', label: 'Incensos', icon: '🌿', desc: 'Purificação e calma' },
-  { slug: 'cristais', label: 'Cristais', icon: '💎', desc: 'Cura e proteção' },
-  { slug: 'kits',     label: 'Kits',     icon: '✨', desc: 'Rituais completos' },
+type IconComp = React.FC<LucideProps>
+
+const categorias: { slug: string; label: string; Icon: IconComp; desc: string }[] = [
+  { slug: 'velas',    label: 'Velas',    Icon: Flame,    desc: 'Intenção e energia' },
+  { slug: 'incensos', label: 'Incensos', Icon: Leaf,     desc: 'Purificação e calma' },
+  { slug: 'cristais', label: 'Cristais', Icon: Gem,      desc: 'Cura e proteção' },
+  { slug: 'kits',     label: 'Kits',     Icon: Sparkles, desc: 'Rituais completos' },
+]
+
+const valores: { Icon: IconComp; titulo: string; desc: string }[] = [
+  { Icon: Gem,     titulo: 'Cristais de Teófilo Otoni', desc: 'Capital mundial das pedras — autenticidade garantida em cada pedra' },
+  { Icon: Flame,   titulo: 'Intenção em cada vela',     desc: 'Selecionados com propósito espiritual real, não por aparência' },
+  { Icon: Package, titulo: 'Embalagem especial',        desc: 'Unboxing pensado para criar uma experiência que vai além do produto' },
+  { Icon: Moon,    titulo: 'Curadoria com propósito',   desc: 'Cada item escolhido com intenção — o que chegou até você não foi por acaso' },
 ]
 
 export default async function Home() {
@@ -38,7 +48,9 @@ export default async function Home() {
             {categorias.map(c => (
               <Link key={c.slug} href={`/produtos?categoria=${c.slug}`} style={{ textDecoration: 'none' }}>
                 <div className="product-card" style={{ padding: '2rem 1.5rem', textAlign: 'center', cursor: 'pointer' }}>
-                  <div style={{ fontSize: '2.2rem', marginBottom: '0.85rem' }}>{c.icon}</div>
+                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.85rem', color: '#C9A84C' }}>
+                    <c.Icon size={30} strokeWidth={1.5} />
+                  </div>
                   <h3 style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '1.05rem', fontWeight: 700, color: '#1E1510', marginBottom: '0.35rem' }}>
                     {c.label}
                   </h3>
@@ -123,14 +135,11 @@ export default async function Home() {
       {/* ── Valores ───────────────────────────────────────── */}
       <section style={{ padding: '4rem 2rem', background: '#EFE9DF' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2.5rem', textAlign: 'center' }}>
-          {[
-            { icon: '💎', titulo: 'Cristais de Teófilo Otoni', desc: 'Capital mundial das pedras — autenticidade garantida em cada pedra' },
-            { icon: '🕯️', titulo: 'Intenção em cada vela',    desc: 'Selecionados com propósito espiritual real, não por aparência' },
-            { icon: '📦', titulo: 'Embalagem especial',        desc: 'Unboxing pensado para criar uma experiência que vai além do produto' },
-            { icon: '🌙', titulo: 'Curadoria com propósito',   desc: 'Cada item escolhido com intenção — o que chegou até você não foi por acaso' },
-          ].map(({ icon, titulo, desc }) => (
+          {valores.map(({ Icon, titulo, desc }) => (
             <div key={titulo}>
-              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>{icon}</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem', color: '#C9A84C' }}>
+                <Icon size={28} strokeWidth={1.5} />
+              </div>
               <h3 style={{ fontFamily: 'var(--font-bodoni), Georgia, serif', fontSize: '0.95rem', fontWeight: 700, color: '#1E1510', marginBottom: '0.5rem' }}>
                 {titulo}
               </h3>

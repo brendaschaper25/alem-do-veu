@@ -42,9 +42,9 @@ export interface ConfiguracaoLoja {
 // Fallback — usado quando Sanity não está configurado
 export const configuracaoFallback: ConfiguracaoLoja = {
   announcementBar: [
-    '⚡ 5% de desconto no PIX',
-    '🌿 Frete grátis acima de R$ 150',
-    '💎 Cristais direto de Teófilo Otoni — MG',
+    '5% de desconto no PIX',
+    'Frete grátis acima de R$ 150',
+    'Cristais direto de Teófilo Otoni — MG',
   ],
   heroSlides: [
     {

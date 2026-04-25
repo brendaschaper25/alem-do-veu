@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import { checkRateLimit } from '@/lib/rateLimit'
 import MercadoPagoConfig, { Payment } from 'mercadopago'
 import { produtosEstaticos } from '@/lib/produtos'
 
@@ -68,6 +69,11 @@ function resolverItens(itens: { produtoId: string; quantidade: number }[]) {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  if (!checkRateLimit(ip, 5, 60_000)) {
+    return NextResponse.json({ erro: 'Muitas tentativas. Aguarde um momento.' }, { status: 429 })
+  }
+
   try {
     const body = await req.json()
     const parsed = PedidoSchema.safeParse(body)

@@ -1,5 +1,5 @@
-// ── ProductFilters — sidebar de filtros (server component) ────────────────
-// Renderiza links <a> que atualizam a URL. Nenhum JS client-side necessário.
+import { Flame, Leaf, Gem, Sparkles } from 'lucide-react'
+import type { LucideProps } from 'lucide-react'
 
 interface Props {
   categoriaAtiva?: string
@@ -7,11 +7,11 @@ interface Props {
   ordemAtiva?: string
 }
 
-const cats = [
-  { slug: 'velas',    label: 'Velas',    icon: '🕯️' },
-  { slug: 'incensos', label: 'Incensos', icon: '🌿' },
-  { slug: 'cristais', label: 'Cristais', icon: '💎' },
-  { slug: 'kits',     label: 'Kits',     icon: '✨' },
+const cats: { slug: string; label: string; Icon: React.FC<LucideProps> }[] = [
+  { slug: 'velas',    label: 'Velas',    Icon: Flame },
+  { slug: 'incensos', label: 'Incensos', Icon: Leaf },
+  { slug: 'cristais', label: 'Cristais', Icon: Gem },
+  { slug: 'kits',     label: 'Kits',     Icon: Sparkles },
 ]
 
 const faixas = [
@@ -106,8 +106,9 @@ export default function ProductFilters({ categoriaAtiva, faixaAtiva, ordemAtiva 
         {cats.map(c => (
           <a key={c.slug}
              href={buildHref(base, 'categoria', c.slug)}
-             style={categoriaAtiva === c.slug ? linkActive : linkBase}>
-            {c.icon} {c.label}
+             style={{ ...categoriaAtiva === c.slug ? linkActive : linkBase, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <c.Icon size={13} strokeWidth={1.5} />
+            {c.label}
           </a>
         ))}
       </div>

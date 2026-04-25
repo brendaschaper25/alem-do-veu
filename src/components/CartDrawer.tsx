@@ -1,5 +1,5 @@
 'use client'
-import { X, Minus, Plus, ShoppingBag } from 'lucide-react'
+import { X, Minus, Plus, ShoppingBag, Package } from 'lucide-react'
 import Link from 'next/link'
 import { useCarrinho, totalCarrinho } from '@/lib/store'
 
@@ -55,8 +55,8 @@ export default function CartDrawer() {
                   background: '#FFFFFF',
                   border: '1px solid rgba(180,160,140,0.18)',
                 }}>
-                  <div style={{ width: 52, height: 52, background: '#EFE9DF', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '1.2rem' }}>🕯️</span>
+                  <div style={{ width: 52, height: 52, background: '#EFE9DF', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C9A84C', opacity: 0.75 }}>
+                    <Package size={22} strokeWidth={1.5} />
                   </div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
